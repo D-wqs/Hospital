@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+ 	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+  -->
+  <mapper namespace="com.xinhua.hospital.dao.DeptDao">
+  <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复
+  	使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型
+    resultType="me.gacl.domain.User"就表示将查询结果封装成一个User类的对象返回
+    User类就是users表所对应的实体类
+    -->
+  		<resultMap type="com.xinhua.hospital.pojo.Department" id="deptMap">
+  			<id property="id" column="id"/>
+  			<result property="name" column="name"/>
+  			<result property="doctor_id" column="doctor_id" />
+  		</resultMap>
+  		<resultMap type="com.xinhua.hospital.pojo.Department" id="deptUserMap">
+  			<id property="id" column="id"/>
+  			<result property="name" column="name"/>
+  			<result property="doctor_id" column="doctor_id" />
+  			<association property="user" javaType="com.xinhua.hospital.pojo.User" column="doctor_id" select="findByid">  			
+  			</association>
+  		</resultMap>
+  		<select id="findByName" parameterType="string" resultMap="deptMap">
+  		select * from department where name=#{name}
+  		</select>
+  		<insert id="addDoctor" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinhua.hospital.pojo.Department">
+		insert into department(name,doctor_id) values(#{name},#{doctor_id})
+		</insert>
+		
+		<select id="findDoctorsBydeptId" parameterType="integer" resultMap="deptUserMap">
+  		select * from department where id=#{id}
+  		</select>
+  		<!-- 通过id查部门人员 -->
+  		<select id="findByid" parameterType="integer" resultType="com.xinhua.hospital.pojo.User">
+  		select * from user where id=#{doctor_id}
+  		</select>
+  		
+  </mapper>
