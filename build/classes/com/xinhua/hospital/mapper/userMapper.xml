@@ -20,6 +20,7 @@
   			<result property="location" column="location" />
   			<result property="email" column="email" />
   			<result property="sex" column="sex" />
+  			<result property="imgpath" column="imgpath" />
   		</resultMap>
   		<resultMap type="com.xinhua.hospital.pojo.User" id="DoctorMap">
   			<id property="id" column="id"/>
@@ -40,13 +41,15 @@
   		select * from user where id=#{id}
   		</select>
   		<select id="getDoctor" resultMap="userMap">
-  		select * from user where role in (1,2) 
+  		select * from user where role in (1,2,3,4) 
   		</select>
   		<select id="findByName" parameterType="string" resultMap="userMap">
   		select * from user where name=#{name}
   		</select>
   		<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinhua.hospital.pojo.User">
-		insert into user(name,age,phone,location,password,sex,email) values(#{name},#{age},#{phone},#{location},#{password},#{sex},#{email})
+		insert into user(name,age,phone,location,password,sex,email,imgpath) values(#{name},#{age},#{phone},#{location},#{password},#{sex},#{email},#{imgpath})
 		</insert>
-  		
+  		<update id="toDoctor" parameterType="int">
+  		update user set role=#{param2} where id=#{param1}
+  		</update>
   </mapper>

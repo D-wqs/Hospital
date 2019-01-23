@@ -12,4 +12,5 @@ public interface UserDao {
 	User findByName(String name) throws Exception;
 	void addUser(User u) throws Exception;
 	List<User> getDoctor() throws Exception;//获取所有医生
+	void toDoctor(int user_id ,int role) throws Exception;
 }

@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById(int id) throws Exception {
 		// TODO Auto-generated method stub
-		User u=dao.findByid(1);
+		User u=dao.findByid(id);
 		return u;
 	}
 	@Override
@@ -42,6 +42,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		List<User> doctors=dao.getDoctor();//0位普通用户，1为医生
 		return doctors;
+	}
+	@Override
+	public void toDoctor(int user_id, int role) throws Exception {
+		// TODO Auto-generated method stub
+		dao.toDoctor(user_id, role);
 	}
 
 	

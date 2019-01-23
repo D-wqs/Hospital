@@ -12,8 +12,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.xinhua.hospital.pojo.Department;
 import com.xinhua.hospital.pojo.Medicine;
 import com.xinhua.hospital.pojo.User;
+import com.xinhua.hospital.service.Impl.DeptServiceImpl;
 import com.xinhua.hospital.service.Impl.MedicineServiceImpl;
 import com.xinhua.hospital.service.Impl.UserServiceImpl;
 
@@ -24,6 +26,8 @@ public class MainController {
 	private MedicineServiceImpl service_m;
 	@Resource
 	private UserServiceImpl service_u;
+	@Resource
+	private DeptServiceImpl service_dept;
 	//登陆后前往主页
 	@RequestMapping(value="/main/list", method = RequestMethod.GET)
 	public String tomian(HttpServletRequest req,ModelMap map) {
@@ -41,9 +45,20 @@ public class MainController {
 			}
 			//主页显示当前所有医生（根据在线情况判断医生是否在线）
 			List<User> doctors=service_u.getDoctor();
-			
+			for(User d:doctors) {
+				log.info("查询到的医生方式一："+d.toString());
+			}
+			//显示骨科部门人员
+			Department guke=service_dept.findDoctorsBydeptId(1);
+			log.info("当前返回几条数据："+guke.getDoctor().size());
+			log.info("打印当前骨科科室"+guke);
+			for(User dept_u:guke.getDoctor()) {
+				
+				log.info("dept.doctor.name:"+dept_u.getName());
+			}
 			session.setAttribute("doctors", doctors);
 			session.setAttribute("list_m", list_m);
+			session.setAttribute("guke", guke);
 			return "main/main";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

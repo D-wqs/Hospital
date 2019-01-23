@@ -1,4 +1,5 @@
 package com.xinhua.hospital.controller;
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -61,18 +62,29 @@ public class UserController {
 	}
 	//3.注册
 	@RequestMapping(value="/user/regist",method = RequestMethod.POST)
-	public String regist(User u,ModelMap map) {
-		System.out.println("注册。。。user属性名与表单中的name值相同，可自动封装成bean对象");
+	public String regist(User u,ModelMap map,HttpServletRequest req) {
+		System.out.println("注册。。。user属性名与表单中的name值相同，可自动封装成bean对象"+u.toString());
+		String path=req.getServletContext().getContextPath()+File.separator+"upload"+File.separator;
+		log.info("打印地址："+path);
 		log.info("log.info:user姓名："+u.getName());
 		try {
+			if (u.getImgpath()==null){
+				if (u.getSex()==0) {
+					u.setImgpath(path+"women.png");
+				}else {
+					u.setImgpath(path+"men.png");
+				}
+			}
+			
 			service.addUser(u);
 			System.out.println("注册参数："+u.toString());
 			//注册成功去登陆界面，后期改为进主页（主页做医生认证，去医生主页）
-			return "login/login";
+			req.getSession().setAttribute("user", u);
+			return "redirect:/main/list";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			map.addAttribute("msg_regist", e);
+			map.addAttribute("msg_regist", "手机号或者邮箱已存在");
 			return "login/regist";
 		}
 		
@@ -104,25 +116,7 @@ public class UserController {
 			}
 			HttpSession session=req.getSession();
 			session.setAttribute("user", user);
-			//判断用户是否选择记住账号
-//			String remember=req.getParameter("remember");
-//			if (remember.equals("1")) {
-//				Cookie cookie = new Cookie("saveusername",
-//						URLEncoder.encode(user.getName(), "utf-8")); // 存储utf-8码
-//				cookie.setMaxAge(7 * 24 * 60 * 60); // 可以记住7天
-////				cookie.setPath("/");
-//				res.addCookie(cookie);
-//				log.info("res:"+res.toString());
-//			}else {
-//				Cookie cookie = new Cookie("saveusername",
-//						URLEncoder.encode(user.getName(), "utf-8")); // 存储utf-8码
-//				cookie.setMaxAge(0); // 可以记住7天
-////				cookie.setPath("/");
-//				res.addCookie(cookie);
-//				log.info("res:"+res.toString());
-//			}
-			//声明一个集合，存放当前在线的用
-//			List<Integer> online=new ArrayList<Integer>();
+
 			online.add(user.getId());
 			
 			for (Integer i:online) {
@@ -156,22 +150,31 @@ public class UserController {
 	}
 	//认证为医生
 		@RequestMapping(value="/user/doctor",method=RequestMethod.POST)
-		public String Doctor(HttpServletRequest req,Department d) {
-			HttpSession session=req.getSession();
-//			int id=(Integer)session.getAttribute("auth_id");
-			log.info("当前传来的参数"+d.toString());
+		public String Doctor(int id,int role) {
+			
 			try {
-				log.info("当前传来的id："+d.getDoctor_id());
+				log.info("传来的值id:"+id+"role:"+role);
+				service.toDoctor(id, role);
 //				User u=service.findById(d.getDoctor_id());
 //				log.info("当前查到的用户："+u.toString());
+				log.info("认证完成，重新登录");
 				
-				service_dept.addDoctor(d);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			}
-			log.info("退出");
 			return "redirect: /ssmDemo";
+		}
+		@RequestMapping(value="/user/toupdate",method=RequestMethod.GET)
+		public String update() {
+					
+			return "login/update";
+		}
+		@RequestMapping(value="/user/update",method=RequestMethod.POST)
+		public String update(User u,HttpServletRequest req) {
+		
+			return "redirect: /ssmDemo/user/list";
 		}
 	
 }

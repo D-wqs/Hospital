@@ -55,6 +55,7 @@
    </head>
    <body>
       <div class="jumbotron" style="margin-bottom: 0px; ">
+      <a href="${pageContext.request.contextPath}/user/regist">注册</a>
 	    <div class="container">
 	       <!--  <a href="${pageContext.request.contextPath}/user/login"> -->
 		        <div class="identity_left">

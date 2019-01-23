@@ -29,10 +29,17 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public List<Department> findDoctorsBydeptId(int id) throws Exception {
+	public Department findDoctorsBydeptId(int id) throws Exception {
 		// TODO Auto-generated method stub
-		List<Department> list=dao.findDoctorsBydeptId(id);
-		return list;
+		Department guke=dao.findDoctorsBydeptId(id);
+		return guke;
+	}
+
+	@Override
+	public List<Department> findDeptAll() throws Exception {
+		// TODO Auto-generated method stub
+		List<Department> list_dept=dao.findDeptAll();
+		return list_dept;
 	}
 
 }

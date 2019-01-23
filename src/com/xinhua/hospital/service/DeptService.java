@@ -8,5 +8,6 @@ import com.xinhua.hospital.pojo.User;
 public interface DeptService {
 	Department findByName(String name) throws Exception;
 	void addDoctor(Department d)throws Exception;
-	List<Department> findDoctorsBydeptId(int id)throws Exception;
+	Department findDoctorsBydeptId(int id)throws Exception;
+	List<Department> findDeptAll() throws Exception;
 }

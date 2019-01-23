@@ -17,10 +17,17 @@ public class User implements Serializable{
 	private int role;//角色值
 	private int status;//用户状态
 	private int sex;//性别
+	private String imgpath;
 	//映射对象，该用户对应的属性角色（骨科，耳鼻喉科等）
 	private Department d;
 	
 	
+	public String getImgpath() {
+		return imgpath;
+	}
+	public void setImgpath(String imgpath) {
+		this.imgpath = imgpath;
+	}
 	public Department getD() {
 		return d;
 	}
@@ -91,7 +98,7 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", password=" + password + ", age=" + age + ", location="
 				+ location + ", phone=" + phone + ", email=" + email + ", role=" + role + ", status=" + status
-				+ ", sex=" + sex + ", d=" + d + "]";
+				+ ", sex=" + sex + ", imgpath=" + imgpath + ", d=" + d + "]";
 	}
 	public User() {
 		super();

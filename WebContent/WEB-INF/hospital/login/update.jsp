@@ -27,7 +27,12 @@
    <body>
 	<div class="container">
 		<h1>注册界面</h1>
-		<form action="${pageContext.request.contextPath}/user/regist" method="POST">
+		<form enctype="multipart/form-data" id="form_upload"  method="POST">
+		<input type="file" name="file"><br/>
+		<button id="upload">上传</button><br/>
+		</form>
+		<form action="${pageContext.request.contextPath}/user/regist" method="POST" >
+		
 		<input type="text" name="name" placeholder="请输入名称"><br/>
 		<input type="text" name="age" placeholder="请输入年龄"><br/>
 		<input type="text" name="password" placeholder="请输入密码"><br/>
@@ -36,10 +41,11 @@
 		<input type="text" name="location" placeholder="请输入住址"><br/>
 		<input name="sex" type="radio" checked="checked" value="1"/>男 
 		<input name="sex" type="radio" value="0" />女
+		
 		<input type="submit" value="注册">
 		<input type="reset" value="重置">
 		</form>
-		
+		<image src=""  alt="上传的图片" id="imgpath">
 		<span style="color:red">${msg_regist}</span>
 	</div>
    </body>

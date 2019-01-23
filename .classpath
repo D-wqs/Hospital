@@ -16,5 +16,16 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="I:/JavaWork/WebSocketChat/WebSocketChat/WebRoot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fastjson-1.2.47.jar"/>
+	<classpathentry kind="lib" path="I:/JavaWork/ssmDemo/WebContent/WEB-INF/lib/javax.websocket-api-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/wqs/.m2/repository/javax/websocket/javax.websocket-api/1.1/javax.websocket-api-1.1.jar" sourcepath="C:/Users/wqs/.m2/repository/javax/websocket/javax.websocket-api/1.1/javax.websocket-api-1.1-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.archivename" value="javax.websocket-api-1.1.jar"/>
+			<attribute name="maven.groupId" value="javax.websocket"/>
+			<attribute name="maven.artifactId" value="javax.websocket-api"/>
+			<attribute name="maven.version" value="1.1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

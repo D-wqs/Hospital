@@ -32,8 +32,9 @@ public class UploadController {
 		return "/login/upload";
 	}
 	@RequestMapping(value="/image/upload",method=RequestMethod.POST)
-//	@ResponseBody
-	public String toFile1(@RequestParam("file")MultipartFile file,String name,HttpServletRequest request,ModelMap model){
+	@ResponseBody
+	public String toFile1(@RequestParam("file")MultipartFile file,HttpServletRequest request,ModelMap model){
+		log.info("进入上传");
 		//获取文件路径
 		String uploadPath = request.getServletContext().getRealPath("upload");
 		String path =uploadPath + File.separator+file.getOriginalFilename();
@@ -46,9 +47,16 @@ public class UploadController {
 		//将文件所在的地址绑定到页面File.separator:-->\
 		String fileUrl = request.getServletContext().getContextPath()+File.separator+"upload"+File.separator+file.getOriginalFilename();
 		log.info("文件上传地址："+fileUrl);
-		model.addAttribute("fileUrl", fileUrl);
-		//提交数据获取
-		log.info("表单数据："+name);
-		return "/login/upload";
+//		model.addAttribute("fileUrl", fileUrl);
+//		//提交数据获取
+//		log.info("表单数据："+name);
+//		return "/login/upload";
+		return fileUrl;
+	}
+	@RequestMapping(value="/image/hello",method=RequestMethod.POST)
+	@ResponseBody
+	public String hello(String name,String Url) {
+		log.info("ajax请求到达"+name+Url);
+		return "hello";
 	}
 }

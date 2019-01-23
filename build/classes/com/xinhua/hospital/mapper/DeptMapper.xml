@@ -17,24 +17,34 @@
   		</resultMap>
   		<resultMap type="com.xinhua.hospital.pojo.Department" id="deptUserMap">
   			<id property="id" column="id"/>
-  			<result property="name" column="name"/>
+  			<result property="name" column="dept_name"/>
   			<result property="doctor_id" column="doctor_id" />
-  			<association property="user" javaType="com.xinhua.hospital.pojo.User" column="doctor_id" select="findByid">  			
-  			</association>
+  			<collection property="doctor" javaType="java.util.ArrayList" column="id" ofType="com.xinhua.hospital.pojo.User">
+  			<id property="id" column="id"/>
+  			<result property="name" column="name"/>
+  			<result property="age" column="age" />
+  			<result property="phone" column="phone" />
+  			<result property="location" column="location" />
+  			<result property="email" column="email" />
+  			<result property="sex" column="sex" />
+  			<result property="role" column="role" />
+  			
+  		</collection> 
   		</resultMap>
   		<select id="findByName" parameterType="string" resultMap="deptMap">
   		select * from department where name=#{name}
   		</select>
-  		<insert id="addDoctor" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinhua.hospital.pojo.Department">
-		insert into department(name,doctor_id) values(#{name},#{doctor_id})
-		</insert>
-		
+		<!-- 在同属性名中，使用别名进行数据注入 -->
 		<select id="findDoctorsBydeptId" parameterType="integer" resultMap="deptUserMap">
-  		select * from department where id=#{id}
+  		select d.id, d.name dept_name,u.* from department d right join user u on d.id=u.role where d.id=#{0}
   		</select>
   		<!-- 通过id查部门人员 -->
   		<select id="findByid" parameterType="integer" resultType="com.xinhua.hospital.pojo.User">
-  		select * from user where id=#{doctor_id}
+  		select * from user where id=#{id}
+  		</select>
+  		
+  		<select id="findDeptAll" resultType="com.xinhua.hospital.pojo.Department">
+  		select * from department
   		</select>
   		
   </mapper>
