@@ -104,54 +104,7 @@
 	        </ul> 
 		    </div>
 		</nav>
-		<!-- 轮播 -->
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		    <!-- 轮播（Carousel）指标 -->
-		    <ol class="carousel-indicators">
-		        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		        <li data-target="#myCarousel" data-slide-to="1"></li>
-		        <li data-target="#myCarousel" data-slide-to="2"></li>
-		    </ol>   
-		    <!-- 轮播（Carousel）项目 -->
-		    <div class="carousel-inner">
-		        <div class="item active">
-		            <img src="${pageContext.request.contextPath}/img/1.jpg" alt="First slide">
-		        </div>
-		        <div class="item">
-		            <img src="${pageContext.request.contextPath}/img/2.png" alt="Second slide">
-		        </div>
-		        <div class="item">
-		            <img src="${pageContext.request.contextPath}/img/3.jpg" alt="Third slide">
-		        </div>
-		    </div>
-		    <!-- 轮播（Carousel）导航 -->
-			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-		<!-- 医院简介 -->
-	    <div class="container-fluid" style="text-align:center;background-color:#f8f8f8;padding:10px" id="info">
-	    <span>DEPARTMENT CENTER</span>
-	    <h3>医院简介</h3>
-	    <span>____</span>
-	    </div>
-	    <div class="container" >
-	    	<h1>Hello Health ${user.name}</h1>
-	    	<c:if test="${user.role==0}">
-	    	<button class="btn btn-primary btn-lg " data-toggle="modal" data-target="#myModal">认证为医生</button>
-	    	</c:if>
-	        <p>
-	        Bootstrap 导航栏可以动态定位。默认情况下，它是块级元素，它是基于在 HTML 中放置的位置定位的。通过一些帮助器类，
-	        您可以把它放置在页面的顶部或者底部，或者您可以让它成为随着页面一起滚动的静态导航栏。
-如果您想要让导航栏固定在页面的顶部，请向 .navbar class 添加 class .navbar-fixed-top。
-	        </p>
-	       
-	        <c:forEach items="${doctors}" var="d">
+		 <c:forEach items="${doctors}" var="d">
 	       		<span>医生名：${d.name}</span>
 	       		<span>医生角色：${d.role}</span>
 	       		
@@ -162,100 +115,7 @@
 	       		
 	       		<span>医生姓名：${dept.name}</span>
 	       </c:forEach>
-	    </div>
-	    
-	    <!-- 资讯中心 -->
-	    <div class="container-fluid" style="text-align:center;background-color:#f8f8f8;padding:10px" id="new">
-	    <span>INFOMATION CENTER</span>
-	    <h3>资讯中心</h3>
-	    <span>____</span>
-	    </div>
-	    <div class="container" style="margin-top:10px">
-	    	<div class="col-lg-3" >
-    			<div class="panel panel-success" >
-				    <div class="panel-heading" style="text-align:center;line-height:100px;color:white;width:100%;height:100px;background-size:100% 100%;background-repeat:repeat;background-image:url('${pageContext.request.contextPath}/img/new4.jpg')">
-				        <div class="panel-title">职工文化</div>
-				    </div>
-				    <div class="panel-body">				       
-				       <div>
-							<ul class="list-unstyled text-justify" style="text-overflow:ellipsis;white-space: nowrap;overflow:hidden;">
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">超出的段落会被省略号代替，依据宽度截取</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							</ul>
-					   </div>
-				    </div>
-				</div>
-	    	</div>
-	        <div class="col-lg-3" >
-			<div class="panel panel-warning">
-			    <div class="panel-heading" style="text-align:center;line-height:100px;color:white;width:100%;height:100px;background-size:100% 100%;background-repeat:repeat;background-image:url('${pageContext.request.contextPath}/img/new2.jpg')">
-			        <div class="panel-title" >面板标题</div>
-			    </div>
-			    <div class="panel-body">
-			        <div>
-							<ul class="list-unstyled text-justify" style="text-overflow:ellipsis;white-space: nowrap;overflow:hidden;">
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">超出的段落会被省略号代替，依据宽度截取</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							</ul>
-					   </div>
-			    </div>
-			</div>
-			</div>
-	        <div class="col-lg-3">
-	        	<div class="panel panel-info">
-				    <div class="panel-heading" style="text-align:center;line-height:100px;color:white;width:100%;height:100px;background-size:100% 100%;background-repeat:repeat;background-image:url('${pageContext.request.contextPath}/img/new3.jpg')">
-				        <div class="panel-title" >面板标题</div>
-				    </div>
-				    <div class="panel-body">
-				        <div>
-							<ul class="list-unstyled text-justify" style="text-overflow:ellipsis;white-space: nowrap;overflow:hidden;">
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">超出的段落会被省略号代替，依据宽度截取</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							</ul>
-					   </div>
-				    </div>
-				</div>		
-	        </div>
-	        <div class="col-lg-3">
-	        	<div class="panel panel-info">
-				    <div class="panel-heading" style="text-align:center;line-height:100px;color:white;width:100%;height:100px;background-size:100% 100%;background-repeat:repeat;background-image:url('${pageContext.request.contextPath}/img/new1.jpg')">
-				        <div class="panel-title">面板标题</div>
-				    </div>
-				    <div class="panel-body">
-				       <div>
-							<ul class="list-unstyled text-justify" style="text-overflow:ellipsis;white-space: nowrap;overflow:hidden;">
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">超出的段落会被省略号代替，依据宽度截取</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							  <li>【看世界】万里赴约</li>
-							  <span class="small text-muted text-justify">这里是样式,段落中超出屏幕部分文字会自动换行，这里用描述新闻</span>
-							</ul>
-					   </div>
-				    </div>
-				</div>		
-	        </div>
-	    </div>
+	
 	    <!-- 行政科室 -->
 	    <div class="container-fluid" style="text-align:center;background-color:#f8f8f8;padding:10px" id="department">
 	    <span>DEPARTMENT CENTER</span>
@@ -387,23 +247,44 @@
 		       		  
 		       		
 		        </c:forEach>	
+		        <a href='${pageConntext.request.contextPath}/ssmDemo/toMedicine'>添加</a>
 	    	</div>
 	    </div>
-	    
-	  	<!-- 底部栏  已定义列表-->
-	  	<div class="container_fluid" >
-	  	<hr>
-		  	<div class="container">
-		  	
-		  	<span>友情链接：</span>
-		  	<dl>
-			<dt>国家卫生健康委员会   |   国家食品药品监督委员会   |  中国疾病预防中心   |   安徽省卫生和计划生育委员会</dt>
-			<dd>安徽医科大学第二附属医院  |  安徽医科大学第一附属医院  |  临床输血与检验  | 中国临床保健杂志|</dd>
-			<dt>中华医学会   |  中国医院协会   |   安徽省医学会</dt>
-			<dd>皖南医学院弋矶山医院    | 安徽中医学院附属针灸医院    | 安徽中医学院第一附属医院</dd>
-			</dl>
-		  	</div>	
-	  	</div>
+	   <!-- 表格 -->
+	   <div class="container">
+	   		<div class="row">
+	   		 <div class="table-responsive">
+				<table class="table">
+				<caption>药品管理</caption>
+				<thead>
+					<tr>
+						<th>药品</th>
+						<th>价格</th>
+						<th>库存</th>
+						<th>信息</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${list_m}" var="m">
+		       		<tr>
+		       			<td width="200px">
+		       			<img alt="" src="${m.image}" style="width:100px;height:100px;">
+		       			<span >${m.name}</span>
+						</td>
+		       			<td>${m.price}</td>
+		       			<td>${m.count }</td>
+		       			<td>${m.information }</td>
+		       			<td>增加</td>
+		       		</tr>
+		        </c:forEach>
+				
+				</tbody>
+				</table>
+			</div>  	
+	   		</div>
+	   </div>
+	  	
 		<!-- 模态框（Modal） -->
 		<div class="modal fade mydialog" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		    <div class="modal-dialog">

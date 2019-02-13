@@ -28,10 +28,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 //注解定义controller控制层bean 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xinhua.hospital.pojo.Department;
 import com.xinhua.hospital.pojo.User;
@@ -125,12 +127,16 @@ public class UserController {
 			log.info("当前在线人数"+online.size());
 			session.setAttribute("online", online);
 //			return "/main/main";
-			return "redirect:/main/list";
+			if (user.getRole()==0) {
+				return "redirect:/main/list";
+			}else {
+				return "redirect:/main/managerlist";
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			map.addAttribute("msg_u","登录异常");
-			return "/login/login";
+			return "redirect: /ssmDemo";
 		}
 	}
 //	5.用户注销
@@ -176,5 +182,21 @@ public class UserController {
 		
 			return "redirect: /ssmDemo/user/list";
 		}
-	
+	//登录时通过输入的用户名检查用户身份
+		@RequestMapping("/user/isDoctor")
+		@ResponseBody
+		public String isDoctor(String name) {
+			String message;
+			try {
+				User u=service.findByName(name);
+				log.info("当前账户名对应用户:"+u.toString());
+				message="yes";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+				log.info("当前用户不是医生身份");
+				message="no";
+			}
+			return message;
+		}
 }

@@ -27,7 +27,7 @@
 		<script type="text/javascript" charset="utf-8" src="assets/umeditor/umeditor.min.js"></script>
 		<script type="text/javascript" src="assets/umeditor/lang/zh-cn/zh-cn.js"></script>
       <style type="text/css">
-      
+      html,body{height:auto}
       </style>
    </head>
    <body>
@@ -36,12 +36,13 @@
 			<!--左边留言板-->
 			<div class="col-lg-5">
 				<div class="container-fluid">
-				   		留言板发送——>${doctor_name}
+				   		${user.name }留言发送给——>${doctor_name}
 				</div>
+				<button id='back'>返回</button>
 			   	<div class="">
-			   		
-					<div class="well well-lg" style="min-height:300px">
-						<div id="msg"></div><br/>			
+					<div class="well well-lg" style="height:300px;max-height:300px;overflow-y:auto" id="scroll">
+						<div id="msg" style="max-height:400px;"></div><br/>			
+						
 					</div>
 					
 					
@@ -61,6 +62,7 @@
 				<div class="container-fluid">
 				   		在线人员
 				</div>
+				<div id="ss"></div>
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -127,7 +129,6 @@
 $(function(){
 	if('WebSocket' in window) {
         console.log("此浏览器支持websocket");
-        console.log("${user.name}要连接，发送给${chatToDoctor.name}");
         websocket = new WebSocket("ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/ws/${user.id}/${user.name}");
 		
 		} else if('MozWebSocket' in window) {
@@ -137,13 +138,26 @@ $(function(){
 		}
 		websocket.onopen = function(evnt) {
 		$("#tou").html("链接服务器成功!")
+		console.log("ws连接成功：",JSON.stringify(evnt))
 		};
 		websocket.onmessage = function(evnt) {
 			//获取切分出来的消息和人员
-			var info=event.data.split(",");
+			var info=evnt.data.split(",");
 			console.log("消息",info[0]);	
-			console.log("传给谁：",info[1]);
-			$("#msg").append("<div class='pull-left'><span style='color:red'>${doctor_name}:</span>"+ info[0]+"</div><div class='clearfix'></div>");
+			console.log("接收者：",info[1]);
+			console.log("发送者：",info[2]);
+			console.log("发送者id：",info[3]);
+			console.log("--------->",$("#scroll").scrollTop(999999))
+			$("#scroll").scrollTop(999999);//滚动条移动至最底部
+			console.log("--------->====",$("#scroll").scrollTop(999999))
+			$("#msg").append("<div class='pull-left'><span style='color:red'>"+"<a href="+"${pageConntext.request.contextPath}/ssmDemo/toWriteMessage?id="+info[3]+"&name="+info[2]+">"+info[2]+"</a>"+":</span>"+ info[0]+"</div><div class='clearfix'></div>");
+//			if (info[0]!="all"){
+//				$("#msg").append("<div class='pull-left'><span style='color:red'>"+"<a href="+"${pageConntext.request.contextPath}/ssmDemo/toWriteMessage?id="+info[3]+"&name="+info[2]+">"+info[2]+"</a>"+":</span>"+ info[0]+"</div><div class='clearfix'></div>");
+//			}else{
+//				$("#ss").append("<span>"+info[2]+"</span>");
+//				//$("#ss").append("<a href='${pageConntext.request.contextPath}/ssmDemo/toWriteMessage?id="+info[2]+"&name="+info[1]+">"+info[1]+"</a>")
+//			}
+			
 		
 		};
 		websocket.onerror = function(evnt) {};
@@ -187,6 +201,7 @@ $(function(){
         	var txt = um.getContent();
         	//输入框内容先发送到聊天框
         	$('#msg').append("<div class='pull-right'><span style='color:red'>${user.name}</span>"+txt+"</div><div class='clearfix'></div>");
+        	$("#scroll").scrollTop(999999);//滚动条移动至最底部
         	//构建一个标准格式的JSON对象
         	var obj = JSON.stringify({
 	    		username:"${user.name}",
@@ -204,4 +219,7 @@ $(function(){
     };
 	
 });
+$('#back').click(function(){
+	history.go(-1);
+})
 </script>

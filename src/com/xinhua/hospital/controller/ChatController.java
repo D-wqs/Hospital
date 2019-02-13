@@ -38,7 +38,6 @@ public class ChatController {
     public void onOpen(@PathParam("id")int id,@PathParam("name")String name, Session session) throws IOException {  
     	log.info("当前传来的值："+id+name);
     	try {
-    		
     		//service_u=(UserServiceImpl) ContextLoader.getCurrentWebApplicationContext().getBean("userServiceImpl");
     		log.info("当前service_u:"+service_u);
 			user=service_u.findById(id);
@@ -47,6 +46,13 @@ public class ChatController {
 			addOnlineCount(); 
 			log.info(user.getName()+"已连接,当前在线人数："+onlineCount);
 			log.info("打印当前连接"+user.getName()+"："+session.toString());
+			//在线通知
+			for(ChatController item:clients.values()) {
+				//发送当前在线人员
+//				sendMessageAll("all,"+item.user.getName()+","+item.user.getId());
+				log.info("当前在线人员："+item.user.getName());
+			}
+//			sendMessageAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +87,7 @@ public class ChatController {
         log.info("用户："+session.getId()+"发来的消息："+obj);
         
         //发送给某人
-        sendMessageTo(obj.get("content").toString(), obj.get("Toname").toString()); 
+        sendMessageTo(obj.get("content").toString(), obj.get("Toname").toString(),obj.get("username").toString()); 
 //          
 //        if (!jsonTo.get("To").equals("All")){
 //        	Message mes=new Message();
@@ -99,21 +105,36 @@ public class ChatController {
     public void onError(Session session, Throwable error) {  
         error.printStackTrace();  
     }  
-    //谁发的什么
-    public void sendMessageTo(String content, String Toname) throws IOException {  
-    	log.info("to:"+Toname);
+    //谁发的什么(发送内容，接收者，发送者)
+    public void sendMessageTo(String content, String Toname,String username) throws IOException {  
+    	log.info(username+"->to:"+Toname);
     	for(ChatController item:clients.values()) {
     		//如果当前在线的用户里有要发送的目标对象，则发送message
     		log.info("当前人员信息："+item.user.toString());
-    		log.info("对还是错："+item.user.getName().equals(Toname));
+    		
     		//找到目标，发送信息
     		if (item.user.getName().equals(Toname)) {
-    			item.session.getAsyncRemote().sendText(content+","+Toname);
-    		}else {
-    			//否则告诉自己对方不在线
-    			if(item.user.getName().equals(user.getName()))
-    			item.session.getAsyncRemote().sendText("<span class='text-danger small'>当前不在线</span>"+","+"系统通知");
+    			log.info(username+"找到对方---》："+Toname+"::::"+item.user.getName().equals(Toname));
+    			User u=new User();
+    			try {
+					u=service_u.findByName(username);
+					log.info("发送者的id:"+u.getId());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    			item.session.getAsyncRemote().sendText(content+","+Toname+","+username+","+u.getId());
+    			log.info("发送------------------------------------------？");
+    			//此处需要break
+    			break;
     		}
+//    		else {
+//    			//否则告诉自己对方不在线
+//    			if(item.user.getName().equals(user.getName())) {
+//    				item.session.getAsyncRemote().sendText("<span class='text-danger small'>当前不在线</span>"+","+"系统通知"+","+username+",0");
+//    			}
+//    			log.info("发送------------------------------------------、、、、、");
+//    		}
     		
     	}
 //        for (Websocket item : clients.values()) { 
@@ -123,9 +144,9 @@ public class ChatController {
     }  
       
     public void sendMessageAll(String message) throws IOException {  
-//        for (Websocket item : clients.values()) {  
-//            item.session.getAsyncRemote().sendText(message);  
-//        }  
+        for (ChatController item : clients.values()) {  
+            item.session.getAsyncRemote().sendText(message);  
+        }  
     }  
       
       

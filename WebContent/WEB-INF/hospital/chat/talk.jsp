@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <h1 class="am-topbar-brand">
 	      <a href="#">聊天室</a>
 	    </h1>
-        <div class="am-topbar-right">
+        <div class="am-topbar-right" id="back">
           <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span></button>
         </div>
 	  </div>
@@ -138,6 +138,9 @@ function addMessage(msg){
 	
 }
 
+$('#back').click(function(){
+		history.go(-1);
+})
 
 </script>
 

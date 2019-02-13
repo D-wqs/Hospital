@@ -25,7 +25,7 @@
       </style>
    </head>
    <body>
-	<div class="container">
+	<div class="container" >
 		<h1>注册界面</h1>
 		<form action="${pageContext.request.contextPath}/user/regist" method="POST">
 		<input type="text" name="name" placeholder="请输入名称"><br/>

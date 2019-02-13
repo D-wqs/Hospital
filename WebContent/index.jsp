@@ -22,7 +22,7 @@
       <style type="text/css">
       	.identity_left{
       		position: absolute;
-      		border:1px solid red;
+      		backgroung-color:white;
       		border-radius: 40%;
       		width:100px;
       		height: 100px;
@@ -32,7 +32,7 @@
       	}
       	.identity_right{
       		position: absolute;
-      		border:1px solid red;
+      		backgroung-color:white;
       		border-radius: 40%;
       		width:100px;
       		height: 100px;
@@ -52,9 +52,27 @@
       	top:50px;
       	}
       </style>
+       
    </head>
+   <script type="text/javascript">
+   function checkname(){
+	   $("#DorU").text(" ");
+	   var name=$("#firstname").val();//jQuery 中val()方法用于设置值时
+	   console.log("--->",name)
+	   $.get("${pageContext.request.contextPath}/user/isDoctor?name="+name,function(data,status){
+		    if (data=="yes"){
+		    	//当前是医生账户
+		    	$("#DorU").text("当前检测为"+name+"医生,已接入医生登录接口");
+		    	console.log("....",$("#DorU").val());
+		    }else{
+		    	//当前非医生账户
+		    	$("#DorU").text("当前检测为"+name+"用户，已接入用户登录接口");
+		    }
+		  });
+	}
+   </script>
    <body>
-      <div class="jumbotron" style="margin-bottom: 0px; ">
+      <div class="jumbotron" style="margin-bottom: 0px;background-color:rgba(0,0,0,0); ">
       <a href="${pageContext.request.contextPath}/user/regist">注册</a>
 	    <div class="container">
 	       <!--  <a href="${pageContext.request.contextPath}/user/login"> -->
@@ -63,7 +81,16 @@
 		        		医生版
 		        	</div>
 		        </div>
-		        <!-- 模态框（Modal） -->
+		        
+	      <!--   </a> -->
+		        <div class="identity_right">
+		        	<div class="run" data-toggle="modal" data-target="#myModal">
+		        		用户版
+		        	</div>
+		        </div>
+	    </div>
+	  </div>
+	  <!-- 模态框（Modal） -->
 				<div class="modal fade mydialog" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog" style="width:600px;margin:90px auto">
 						<div class="modal-content">
@@ -80,7 +107,7 @@
 								  <div class="form-group">
 								    <label for="firstname" class="col-sm-2 control-label">名字</label>
 								    <div class="col-sm-10">
-								      <input type="text" class="form-control" id="firstname" name="name" placeholder="请输入名字">
+								      <input type="text" class="form-control" id="firstname" name="name" placeholder="请输入名字" onblur="checkname()" />
 								    </div>
 								  </div>
 								  <div class="form-group">
@@ -94,6 +121,7 @@
 								      <div class="checkbox">
 								        <label>
 								          <input type="checkbox" name="remember" value="1">记住密码
+								          <span id="DorU"></span>
 								        </label>
 								      </div>
 								    </div>
@@ -109,20 +137,9 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 								</button>
-								
 							</div>
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal -->
 				</div>
-	      <!--   </a> -->
-	        <a href="${pageContext.request.contextPath}/user/login">
-		        <div class="identity_right">
-		        	<div class="run">
-		        		学生版
-		        	</div>
-		        </div>
-	        </a>
-	    </div>
-	  </div>
    </body>
 </html>

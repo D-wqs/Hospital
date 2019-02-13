@@ -29,13 +29,14 @@ public class MedicineServiceImpl implements MedicineService {
 	@Override
 	public Medicine findByType(int type) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		Medicine m=dao.findByType(type);
+		return m;
 	}
 
 	@Override
 	public void addMedicine(Medicine m) throws Exception {
 		// TODO Auto-generated method stub
-		
+		dao.addMedicine(m);
 	}
 
 }

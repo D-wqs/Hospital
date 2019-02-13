@@ -31,6 +31,7 @@ public class Writemessage {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		//用户点击一个医生后，绑定该医生的id和姓名
 		req.getSession().setAttribute("doctor_id", id);
 		req.getSession().setAttribute("doctor_name", name);
 		log.info("前往聊天界面"+id+name);
