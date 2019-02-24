@@ -179,8 +179,19 @@ public class UserController {
 		}
 		@RequestMapping(value="/user/update",method=RequestMethod.POST)
 		public String update(User u,HttpServletRequest req) {
-		
-			return "redirect: /ssmDemo/user/list";
+			log.info("当前传过来的参数："+u.toString());
+			try {
+				service.update(u);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if (u.getRole()==0) {
+				return "redirect:/main/list";
+			}else {
+				return "redirect:/main/managerlist";
+			}
 		}
 	//登录时通过输入的用户名检查用户身份
 		@RequestMapping("/user/isDoctor")

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+ 	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+  -->
+  <mapper namespace="com.xinhua.hospital.dao.AppDao">
+  <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复
+  	使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型
+    resultType="me.gacl.domain.User"就表示将查询结果封装成一个User类的对象返回
+    User类就是users表所对应的实体类
+    -->
+  		<resultMap type="com.xinhua.hospital.pojo.Application" id="AppMap">
+  			<id property="id" column="id"/>
+  			<result property="medicine_id" column="medicine_id"/>
+  			<result property="doctor_id" column="doctor_id" />
+  			<result property="user_id" column="user_id" />
+  			<result property="medicine_name" column="medicine_name" />
+  			<result property="doctor_name" column="doctor_name" />
+  			<result property="user_name" column="user_name" />
+  			<result property="create_time" column="create_time" />
+  		</resultMap>
+  		<select id="findAll" resultMap="AppMap">
+  		select * from application
+  		</select>
+  		<insert id="createApp" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinhua.hospital.pojo.Application">
+		insert into application(doctor_id,user_id,medicine_name,doctor_name,user_name) values(#{doctor_id},#{user_id},#{medicine_name},#{doctor_name},#{user_name})
+		</insert>
+  </mapper>

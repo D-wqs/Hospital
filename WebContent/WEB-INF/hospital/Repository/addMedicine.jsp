@@ -26,30 +26,37 @@
    <body>
       <div class="jumbotron" style="margin-bottom: 0px;background-color:rgba(0,0,0,0); ">
 	    <div class="container">
-	    	<form role="form" id="form_upload" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/medicine/add">
-			  <div class="form-group">
-			    <label for="name">药品名</label>
-			    <input type="text" class="form-control" name="name" placeholder="请输入名称">
-			  </div>
-			  <div class="form-group">
-			    <label for="name">价格</label>
-			    <input type="text" class="form-control" name="price" placeholder="请输入价格">
-			  </div>
-			  <div class="form-group">
-			    <label for="name">数量</label>
-			    <input type="text" class="form-control" name="count" placeholder="请输入数量">
-			  </div>
-			  <div class="form-group">
-			    <label for="name">描述</label>
-			    <input type="text" class="form-control" name="information" placeholder="请输入描述">
-			  </div>
-			  <div class="form-group">
-			    <label for="inputfile">文件输入</label>
-			    <input type="file" id="inputfile" name="file">
-			  </div>
-			  <button type="submit" class="btn btn-default">提交</button>
-			 
-			</form>
+	    	<div class="row">
+	    		<div class="col-lg-4">
+	    		</div>
+	    		<div class="col-lg-4">
+	    		<form role="form" id="form_upload" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/medicine/add">
+				  <div class="form-group">
+				    <label for="name">药品名</label>
+				    <input type="text" class="form-control" name="name" placeholder="请输入名称">
+				  </div>
+				  <div class="form-group">
+				    <label for="name">价格</label>
+				    <input type="text" class="form-control" name="price" placeholder="请输入价格">
+				  </div>
+				  <div class="form-group">
+				    <label for="name">数量</label>
+				    <input type="text" class="form-control" name="count" placeholder="请输入数量">
+				  </div>
+				  <div class="form-group">
+				    <label for="name">描述</label>
+				    <input type="text" class="form-control" name="information" placeholder="请输入描述">
+				  </div>
+				  <div class="form-group">
+				    <label for="inputfile">图片</label>
+				    <input type="file" id="inputfile" name="file">
+				  </div>
+				  <button type="submit" class="btn btn-default">提交</button>
+				 
+				</form>
+	    		</div>
+	    		<div class="col-lg-4"></div>
+	    	</div>
 	    </div>
 	  </div>
    </body>

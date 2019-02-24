@@ -26,22 +26,57 @@
    </head>
    <body>
 	<div class="container" >
-		<h1>注册界面</h1>
-		<form action="${pageContext.request.contextPath}/user/regist" method="POST">
-		<input type="text" name="name" placeholder="请输入名称"><br/>
-		<input type="text" name="age" placeholder="请输入年龄"><br/>
-		<input type="text" name="password" placeholder="请输入密码"><br/>
-		<input type="text" name="email" placeholder="请输入邮箱"><br/>
-		<input type="text" name="phone" placeholder="请输入手机号"><br/>
-		<input type="text" name="location" placeholder="请输入住址"><br/>
-		<input name="sex" type="radio" checked="checked" value="1"/>男 
-		<input name="sex" type="radio" value="0" />女
-		<input type="submit" value="注册">
-		<input type="reset" value="重置">
-		</form>
-		
-		<span style="color:red">${msg_regist}</span>
+		<div class="row">
+		<hr>
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4 well" style="margin:auto">
+				<h1>用户注册</h1>
+				<form action="${pageContext.request.contextPath}/user/regist" method="POST" role="form">
+				 <div class="form-group">
+				   
+				    <input type="text" name="name" placeholder="请输入名称" class="form-control"><br/>
+				  </div>
+				<div class="form-group">
+				    
+				    <input type="text" name="age" placeholder="请输入年龄" class="form-control"><br/>
+				  </div>
+				<div class="form-group">
+				   
+				    <input type="text" name="password" placeholder="请输入密码" class="form-control"><br/>
+				  </div>
+				<div class="form-group">
+				    
+				    <input type="text" name="email" placeholder="请输入邮箱" class="form-control"><br/>
+				  </div>
+				<div class="form-group">
+				    
+				    <input type="text" name="phone" placeholder="请输入手机号" class="form-control"><br/>
+				  </div>
+				<div class="form-group">
+				    
+				    <input type="text" name="location" placeholder="请输入住址" class="form-control"><br/>
+				  </div>
+				<input name="sex" type="radio" checked="checked" value="1" class="radio-inline"/>男 
+				<input name="sex" type="radio" value="0" class="radio-inline"/>女
+				<hr>
+				<div class="row" >
+					<div class="col-lg-3"></div>
+					<div class="col-lg-3">
+					<input type="submit" value="注册" style="margin:auto">
+					</div>
+					
+					<div class="col-lg-2">
+					<input type="reset" value="重置" style="margin:auto">
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+				</form>
+				<span style="color:red">${msg_regist}</span>
+			</div>
+			<div class="col-lg-4"></div>
+		</div>
 	</div>
+	
    </body>
 </html>
 <script>

@@ -65,6 +65,14 @@
 	    text-align:center;
 	    }
       </style>
+      <script>
+	//jquery入口函数
+	$(function(){
+		$('#myCarousel').carousel();
+		
+		
+	});
+	</script>
    </head>
    <body>
 
@@ -79,8 +87,8 @@
 		            <li class="active"><a href="#">首页</a></li>
 		            <li><a href="#info">医院简介</a></li>
 		            <li><a href="#new">新闻动态</a></li>
-		            <li><a href="#department">院务公开</a></li>
 		            <li><a href="#department">行政科室</a></li>
+		            <li><a href="#tool">医药器械</a></li>
 		            <li><a href="${pageContext.request.contextPath}/totalk">讨论区</a></li>
 		            <li class="dropdown">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -99,7 +107,7 @@
 		        </ul>
 		    </div>
 		    <ul class="nav navbar-nav navbar-right"> 
-	            <li><a href="${pageContext.request.contextPath}/user/update"><span class="glyphicon glyphicon-user"></span>设置</a></li> 
+	            <li><a href="${pageContext.request.contextPath}/user/toupdate"><span class="glyphicon glyphicon-user"></span>个人信息</a></li> 
 	            <li><a href="${pageContext.request.contextPath}/user/exit"><span class="glyphicon glyphicon-log-in"></span>注销</a></li> 
 	        </ul> 
 		    </div>
@@ -370,7 +378,7 @@
 		</div>
 	    <hr>
 		<!-- 医药器械 -->
-	    <div class="container-fluid" style="text-align:center;background-color:#f8f8f8;padding:10px" id="info">
+	    <div class="container-fluid" style="text-align:center;background-color:#f8f8f8;padding:10px" id="tool">
 	    <span>DEPARTMENT CENTER</span>
 	    <h3>医药器械</h3>
 	    <span>____</span>
@@ -384,9 +392,8 @@
 		       		   <p>药品：${m.name}</p>
 		       		   <p>价格：${m.price}</p>
 		       		</div>
-		       		  
-		       		
 		        </c:forEach>	
+		        <a href="#">上一页</a>|<a href="#">下一页</a>
 	    	</div>
 	    </div>
 	    
@@ -449,11 +456,3 @@
 	
    </body>
 </html>
-<script>
-	//jquery入口函数
-$(function(){
-	$('#myCarousel').carousel({interval: 400});
-	
-	
-});
-</script>

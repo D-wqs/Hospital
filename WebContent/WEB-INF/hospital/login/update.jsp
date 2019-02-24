@@ -26,27 +26,49 @@
    </head>
    <body>
 	<div class="container">
-		<h1>注册界面</h1>
-		<form enctype="multipart/form-data" id="form_upload"  method="POST">
-		<input type="file" name="file"><br/>
-		<button id="upload">上传</button><br/>
-		</form>
-		<form action="${pageContext.request.contextPath}/user/regist" method="POST" >
-		
-		<input type="text" name="name" placeholder="请输入名称"><br/>
-		<input type="text" name="age" placeholder="请输入年龄"><br/>
-		<input type="text" name="password" placeholder="请输入密码"><br/>
-		<input type="text" name="email" placeholder="请输入邮箱"><br/>
-		<input type="text" name="phone" placeholder="请输入手机号"><br/>
-		<input type="text" name="location" placeholder="请输入住址"><br/>
-		<input name="sex" type="radio" checked="checked" value="1"/>男 
-		<input name="sex" type="radio" value="0" />女
-		
-		<input type="submit" value="注册">
-		<input type="reset" value="重置">
-		</form>
-		<image src=""  alt="上传的图片" id="imgpath">
-		<span style="color:red">${msg_regist}</span>
+		<div class="row">
+			<div class="col-lg-4">
+				<h1>修改个人信息</h1>
+				<form action="${pageContext.request.contextPath}/user/update" method="POST" enctype="multipart/form-data">
+				<image src="${user.imgpath}"  alt="上传的图片" id="imgpath">
+				<br>
+				<!-- 两个隐藏表单域，传送id和role,用于条件更新，以及用户身份识别后跳转到相应主页 -->
+				<input type="hidden" name="id" value="${user.id }">
+				<input type="hidden" name="role" value="${user.role }">
+				姓名：<input type="text" name="name" placeholder="请输入名称" value="${user.name }"><br/>
+				年龄：<input type="text" name="age" placeholder="请输入年龄" value="${user.age }"><br/>
+				
+				邮箱：<input type="text" name="email" placeholder="请输入邮箱" value="${user.email }"><br/>
+				电话：<input type="text" name="phone" placeholder="请输入手机号" value="${user.phone }"><br/>
+				地址：<input type="text" name="location" placeholder="请输入住址" value="${user.location }"><br/>
+				<input type="submit" value="修改">
+				</form>
+				<span style="color:red">${msg_regist}</span>
+			</div>
+			<div class="col-lg-8">
+				<table class="table">
+				  <caption>历史病例单</caption>
+				  <thead>
+				    <tr>
+				      <th>ID</th>
+				      <th>药品名</th>
+				      <th>主治医生</th>
+				      <th>时间</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <c:forEach items="${list_app}" var="app">
+				    	<tr>
+				    	  <td>${app.id }</td>
+					      <td>${app.medicine_name}</td>
+					      <td>${app.doctor_name}</td>
+					      <td>${app.create_time}</td>
+					    </tr>
+				    </c:forEach>
+				  </tbody>
+				</table>
+			</div>
+		</div>
 	</div>
    </body>
 </html>
@@ -88,7 +110,6 @@ $(function(){
              error:function(data){
             	 console.log("错误",data);
                  alert(data);
-                // alert("后台发生异常");
              },
              cache:false,
              async:true

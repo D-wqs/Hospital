@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		dao.toDoctor(user_id, role);
 	}
+	@Override
+	public void update(User u) throws Exception {
+		// TODO Auto-generated method stub
+		dao.update(u);
+	}
 
 	
 }

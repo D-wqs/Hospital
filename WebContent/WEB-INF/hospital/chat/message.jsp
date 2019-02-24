@@ -58,62 +58,22 @@
 			</div>
 			<!--<div class="col-lg-2"></div>-->
 			<!--右边在线人员-->
-			<div class="col-lg-5">
-				<div class="container-fluid">
-				   		在线人员
+			<div class="col-lg-6">
+				<div class="container">
+				   	<div class="row">
+				   	<hr/>
+				   		<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo" id="info">治感冒</button>    
+							<div id="demo" class="collapse ">
+							   <ul id="getjson"></ul>
+							</div>
+				   	</div>
 				</div>
-				<div id="ss"></div>
-				<div class="panel-group" id="accordion">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-									骨科
-								</a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<c:forEach items="${doctors}" var="u">
-						       		<c:if test="${u.role==1}">
-						       		<span>${u.name}</span><a href="${pageConntext.request.contextPath}/ssmDemo/toWriteMessage?id=${u.id}&name=${u.name}">留言</a>
-						       		</c:if>
-						       </c:forEach>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-									耳鼻喉科
-								</a>
-							</h4>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse">
-							<div class="panel-body">
-								Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-								cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-								vice lomo.
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-									眼科
-								</a>
-							</h4>
-						</div>
-						<div id="collapseThree" class="panel-collapse collapse">
-							<div class="panel-body">
-								Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-								cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-								vice lomo.
-							</div>
-						</div>
-					</div>
+				<div class="container">
+				   	<div class="row">
+				   	<input type="text" id="toApp">
+				   	<input type="hidden" id="u_id">
+				   	<input type="hidden" id="d_id">
+				   	<button id="addApp">生成药单</button>
 				</div>
 			</div>
 			</div>
@@ -147,6 +107,8 @@ $(function(){
 			console.log("接收者：",info[1]);
 			console.log("发送者：",info[2]);
 			console.log("发送者id：",info[3]);
+			$("#u_id").val(info[3]);
+			console.log("通过聊天消息绑定病人id：",$("#u_id").val());
 			console.log("--------->",$("#scroll").scrollTop(999999))
 			$("#scroll").scrollTop(999999);//滚动条移动至最底部
 			console.log("--------->====",$("#scroll").scrollTop(999999))
@@ -221,5 +183,50 @@ $(function(){
 });
 $('#back').click(function(){
 	history.go(-1);
+});
+//根据药品效果，查询有对应的药品信息
+$("#info").click(function(){
+	var info=$("#info").text();
+	console.log("info的值：",info);
+	 $.post("${pageContext.request.contextPath}/getMedicineinfo",
+			 {
+		 		Info:info
+			 },
+			 function(data,status){
+	        console.log(data);
+	        console.log(data.info);
+	        $("#getjson").empty();//jQuery remove() 方法删除被选元素及其子元素。
+	        for(var i=0;i<data.info.length;i++){
+	        	console.log("json数组",data.info[i]);
+	        	 var s_li="<li id='M'>"+data.info[i].id+","+data.info[i].name+"</li>";
+	        	 
+	        	$("#getjson").append(s_li);
+	        }
+	    });
+});
+$("#addApp").click(function(){
+	var val=$("#toApp").val();
+	var D_id=${user.id};
+	var U_id=$("#u_id").val();
+	console.log("输入的药品编码：",val);
+	console.log("当前医生病人：",D_id,"+",U_id)
+	//post发送到后台
+	//医生开药，所以userid是医生
+	$.post("${pageContext.request.contextPath}/addMedicineByDoctor",
+			 {
+		 		"Info":val,
+		 		"D_id":D_id,
+		 		"U_id":U_id
+			 },
+			 function(data,status){
+	        console.log(data);
+	        
+	    });
+})
+$("#M").click(function(){
+	console.log("m_info");
+	alert("当前选中：",$("#M").val());
+	var m_info=$("#M").val().split(",");
+	console.log("m_info:",m_info);
 })
 </script>

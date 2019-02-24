@@ -49,7 +49,7 @@
   		<insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinhua.hospital.pojo.User">
 		insert into user(name,age,phone,location,password,sex,email,imgpath) values(#{name},#{age},#{phone},#{location},#{password},#{sex},#{email},#{imgpath})
 		</insert>
-  		<update id="toDoctor" parameterType="int">
-  		update user set role=#{param2} where id=#{param1}
+  		<update id="update" parameterType="com.xinhua.hospital.pojo.User">
+  		update user set name=#{name},age=#{age},email=#{email},phone=#{phone},location=#{location} where id=#{id}
   		</update>
   </mapper>

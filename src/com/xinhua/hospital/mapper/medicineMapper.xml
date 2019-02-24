@@ -21,12 +21,27 @@
   			<result property="user_id" column="user_id" />
   		</resultMap>
   		<select id="findAll" resultMap="medicineMap">
-  		select * from medicine
+  		select * from medicine limit 1,6
   		</select>
   		<select id="findByType" parameterType="int" resultMap="medicineMap">
   		select * from medicine where type=#{type}
   		</select>
-  	
+  		
+  		<select id="findById" parameterType="int" resultType="com.xinhua.hospital.pojo.Medicine">
+  		select * from medicine where id=#{id}
+  		</select>
+  		<select id="findCount" resultType="int">
+  			select count(*) from medicine 
+  		</select>
+  		<select id="findMByinformation" parameterType="String" resultMap="medicineMap">
+  			select * from medicine where information like #{Info}  
+  		</select>
+  		<select id="findByPage" parameterType="int" resultMap="medicineMap">
+  			select * from medicine 
+  			<if test="#{param1}!=null and #{param2}!=null">
+  			limit #{param1},#{param2}
+  			</if>
+  		</select>
   		<insert id="addMedicine" useGeneratedKeys="true" keyProperty="id" parameterType="com.xinhua.hospital.pojo.Medicine">
 		insert into medicine(name,price,type,user_id,count,image,information) values(#{name},#{price},#{type},#{user_id},#{count},#{image},#{information})
 		</insert>

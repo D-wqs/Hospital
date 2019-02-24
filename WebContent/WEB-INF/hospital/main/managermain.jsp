@@ -99,7 +99,7 @@
 		        </ul>
 		    </div>
 		    <ul class="nav navbar-nav navbar-right"> 
-	            <li><a href="${pageContext.request.contextPath}/user/update"><span class="glyphicon glyphicon-user"></span>设置</a></li> 
+	            <li><a href="${pageContext.request.contextPath}/user/toupdate"><span class="glyphicon glyphicon-user"></span>设置</a></li> 
 	            <li><a href="${pageContext.request.contextPath}/user/exit"><span class="glyphicon glyphicon-log-in"></span>注销</a></li> 
 	        </ul> 
 		    </div>
